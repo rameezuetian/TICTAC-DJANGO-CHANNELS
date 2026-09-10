@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tic-Tac-Toe Room</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #f8f8f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    .shell {
+      width: min(560px, 92vw);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 22px;
+      font-size: 2.4rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    label {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    input, select {
+      background: #fff;
+    }
+    button {
+      background: #2dd4bf;
+      color: #062b25;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      background: #7dfbe1;
+    }
+    .messages {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+    }
+    .message {
+      color: #ffd1d1;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <h1>Tic-Tac-Toe</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <div>
+        <label for="username">Player name</label>
+        <input type="text" id="username" name="username" placeholder="Enter your name" required>
+      </div>
+      <div>
+        <label for="room_code">Room code</label>
+        <input type="text" id="room_code" name="room_code" placeholder="Room code" required>
+      </div>
+      <div>
+        <label for="option">Mode</label>
+        <select id="option" name="option">
+          <option value="2">Create room</option>
+          <option value="1">Join room</option>
+        </select>
+      </div>
+      <button type="submit">Enter room</button>
+    </form>
+
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="message">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
